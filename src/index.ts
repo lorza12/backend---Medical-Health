@@ -4,17 +4,24 @@ import connectDb from './configdt/database';
 import routes from './routes';
 import configExpress from './configdt/express';
 
+// const bp = require('body-parser');
+
+
+
 dotenv.config();
 const app = express();
+
+// app.use(bp.json())
+// app.use(bp.urlencoded({ extended: true }));
+
+const port = process.env.PORT || 8080;
 
 connectDb();
 routes(app);
 configExpress(app);
 
-app.get('/', (req, res) => {
-    res.send('hola mundo');
-});
 
-app.listen(8080, () => {
+
+app.listen(port, () => {
     console.log('server is running on port 8080');
 });
