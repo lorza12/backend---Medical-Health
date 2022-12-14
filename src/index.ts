@@ -10,6 +10,7 @@ import configExpress from './configdt/express';
 
 dotenv.config();
 const app = express();
+app.use(express.json())
 
 // app.use(bp.json())
 // app.use(bp.urlencoded({ extended: true }));

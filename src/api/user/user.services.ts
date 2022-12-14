@@ -2,7 +2,7 @@ import User from "./user.model";
 
 
 export function getAllusers() {
-  return User.find().sort({ createdAt:-1 })
+  return User.find()
    
 }
 
@@ -11,9 +11,9 @@ export function getUserById(id) {
    return user;
 }
 
-export function createUser(user) {
-   console.log(user);
-  return User.create(user);
+export function createUser(userData) {
+   console.log(userData);
+  return User.create(userData);
   
 }
 

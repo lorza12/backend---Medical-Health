@@ -1,75 +1,43 @@
 import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema({
-    firstName: String,
-    lastName: String,
-    password: String,
-//    firstName: {
-//     type: String,
-//     require: true,
-//     },
 
-//     lastName: {
-//     type: String,
-//     require: true,
+   name: {
+    type: String,
+    require: true,
+    },
+    email: {
+        type: String,
+        require: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+    },
+    password: {
+        type: String,
+        require: true,
+        min: 6,
+    },
+    birthday: {
+        type: Date,
+        require: true,
+    },
+    telephone: {
+        type: Number,
+        require: true,
+    },
+    location: {
+        type: String,
+        required: true,
+      },
+    //   appointments: {
+    //     type: Array,
+    //   },
+     //   clinicHistory: {
+    //     type: Array,
+    //   },
 
-//     },
-
-//     emaial: {
-//         type: String,
-//         require: true,
-//         unique: true,
-//         trim: true,
-//         lowercase: true,
-//     },
-
-//     password: {
-//         type: String,
-//         require: true,
-//         min: 6,
-//     },
-
-//     role: {
-//         type: String,
-//         enum: ['USER', 'ADMIN'],
-//         default: 'USER',
-//     },
-
-//     avatar: {
-//         type: String,
-//         default: '',
-//     },
-
-//     birth: {
-//         type : String,
-//         require: true,
-//     },
     
-//     bloodType: {
-//         type: String,
-//         require: true,
-//     },
-
-//     gender: {
-//         type: String,
-//         required: true,
-//     },
-
-//     nationality: {
-//         type: String,
-//         require: true,
-//         uppercase: true,
-//     },
-
-//     phone: {
-//         type: String,
-//         required: true,
-//     },
-
-//     isActive: {
-//         type: Boolean,
-//         default: false,
-//       },
 
 }, {
     timestamps: true,
