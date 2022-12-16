@@ -1,11 +1,41 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
+
+interface userDocument extends Document {
+    firstName: String;
+    lastName: String;
+    email: String;
+    password: String;
+    nacionality: String;
+    avatar?: String;
+    role: String
+    phone: String;
+    birthday: Date;
+    gender: String;
+    location: String
+    isActive: boolean;
+    passwordResetToken?: String;
+    passwordResetExpires?: Date;
+    createdAt: Date;
+    updatedAt: Date;
+
+    fullName: String;
+
+    
+}
 
 const UserSchema = new Schema({
 
-   name: {
+   firstName: {
     type: String,
     require: true,
     },
+
+    lastName: {
+        type: String,
+        require: true,
+        uppercase: true,
+    },
+
     email: {
         type: String,
         require: true,
@@ -18,32 +48,62 @@ const UserSchema = new Schema({
         require: true,
         min: 6,
     },
+
+    role: {
+        type: String,
+        enum: ['USER', 'ADMIN'],
+        default: 'USER',
+    },
+
+    avatar: {
+        type: String,
+        require: true,
+    },
+
+    nacionality: {
+        type: String,
+        require: true,
+    },
+
+    phone: {
+        type: String,
+        require: true,
+    },
+
     birthday: {
         type: Date,
         require: true,
     },
-    telephone: {
-        type: Number,
+
+    gender: {
+        type: String,
         require: true,
     },
+
     location: {
         type: String,
         required: true,
       },
-    //   appointments: {
-    //     type: Array,
-    //   },
-     //   clinicHistory: {
-    //     type: Array,
-    //   },
 
-    
+      isActive: {
+        type: Boolean,
+        default: false,
+      },
+      passwordResetToken: String,
+      passwordResetExpires: Date,
+    }, {
+      timestamps: true,
+      versionKey: false,
+    });
+   
 
-}, {
-    timestamps: true,
-    versionKey: false,
-});
 
-const User = model('User', UserSchema);
+UserSchema.virtual('fullName').get(function (){
+    const { firstName, lastName } = this
+    return `${firstName} ${lastName}` 
+})
+
+
+const User = model<userDocument>('User', UserSchema);
 
 export default User;
