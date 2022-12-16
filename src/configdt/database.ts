@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+mongoose.set('strictQuery', false);
 
 async function connectDb() {
-    const uri = "mongodb+srv://dev:vEYChUqMXFZ6ze1o@medical-health.gf7ova9.mongodb.net/medical-health?retryWrites=true&w=majority"
+    const uri = process.env.BD_MONG_URI;
      
     try {
         mongoose.connect(uri)

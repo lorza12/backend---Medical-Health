@@ -1,5 +1,12 @@
 import { Schema, model } from "mongoose";
 
+
+
+
+
+
+
+
 const DoctorSchema = new Schema(
   {
     name: {
