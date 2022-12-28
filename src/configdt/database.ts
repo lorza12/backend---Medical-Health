@@ -3,6 +3,7 @@ mongoose.set('strictQuery', false);
 
 async function connectDb() {
     const uri = process.env.BD_MONG_URI;
+    
      
     try {
         mongoose.connect(uri)
