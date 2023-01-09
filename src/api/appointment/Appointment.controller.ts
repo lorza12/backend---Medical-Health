@@ -2,14 +2,13 @@ import { Request, Response, NextFunction} from 'express';
 import { AuthRequest } from '../../auth/auth.types';
 
 import { getAllAppointments, getAppointmentById, deleteAppointment, createAppointment } from "./Appointment.services";
-import log from '../../logger';
 
 export async function handleAllGetAppointments(req: Request, res: Response, next: NextFunction) {
     try {
         const Appointments = await getAllAppointments();
         return res.status(200).json(Appointments);
     } catch (error) {
-        log.error(error);
+        console.log(error);
         return res.status(500).json(error);
 
     }
@@ -26,7 +25,7 @@ export async function handleGetAppointment(req: Request, res: Response, next: Ne
 
         return res.status(200).json(Appointment);
     } catch (error) {
-        log.error(error);
+        console.log(error);
         return res.status(500).json(error);
 
     }
@@ -40,7 +39,7 @@ export async function handleCreateAppointment(req: Request, res: Response, next:
     
     return res.status(201).json(newAppointment);
    } catch (error) {
-    log.error(error);
+    console.log(error);
         return res.status(500).json(error);
    }
 }
