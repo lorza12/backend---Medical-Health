@@ -66,4 +66,4 @@ export async function isAuthenticated(req: AuthRequest, res: Response, next: Nex
       next();
       return true;
     }
-  }
+  } 
