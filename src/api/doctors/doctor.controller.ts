@@ -41,8 +41,6 @@ export async function handleCreateDoctor(req: Request, res: Response) {
   } catch (error) {}
 }
 
-export async function handleUpdateDoctor(req: Request, res: Response) {}
-
 export async function handleDeleteDoctor(req: Request, res: Response) {
   const { id } = req.params;
   try {
