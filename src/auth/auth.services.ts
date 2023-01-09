@@ -1,9 +1,10 @@
+import { json } from 'body-parser';
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { UserDocument } from '../api/user/user.model';
 import { getUser } from '../api/user/user.services';
-import { AuthRequest } from './auth.types';
+import { AuthRequest, Roles } from './auth.types';
 
 const SECRET = process.env.SECRET_TOKEN_APP as string;
 
@@ -52,4 +53,17 @@ export async function isAuthenticated(req: AuthRequest, res: Response, next: Nex
   
     next();
     return true;
+  }
+
+  export function hasRole(allowroles: Roles) {
+    return (req: AuthRequest, res: Response, next: NextFunction) => {
+      const { role } = req.user as UserDocument;
+
+      if (!allowroles.includes(role)) {
+        return res.status(403).json({ message: 'forbidden' });
+      }
+
+      next();
+      return true;
+    }
   }
