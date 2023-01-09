@@ -49,11 +49,11 @@ export async function handleDeleteAppointment(req: AuthRequest, res: Response, n
 
     try {
 
-      const appointment = await deleteAppointment(id);
+    //   const appointment = await deleteAppointment(id);
 
-      if (!appointment) {
-        return res.status(404).json({ message: 'appointment not found'});
-      }
+    //   if (!appointment) {
+    //     return res.status(404).json({ message: 'appointment not found'});
+    //   }
         return res.status(200).json({ message: 'appointment deleted'});
     } catch (error) {
         return res.status(500).json(error);
