@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { isAuthenticated, hasRole } from '../../auth/auth.services';
 
 
 import {
@@ -21,7 +22,7 @@ router.post('/', handleCreateUser);
 // PATCH /api/users/:id
 
 // DELETE /api/users/:id
-router.delete('/:id', handleDeleteUser);
+router.delete('/:id', isAuthenticated, hasRole(['ADMIN']), handleDeleteUser);
 
 
 export default router;
