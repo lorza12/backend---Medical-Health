@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 mongoose.set('strictQuery', false);
 
+import log from '../logger';
+
 async function connectDb() {
     const uri = process.env.BD_MONG_URI;
 
@@ -11,9 +13,9 @@ async function connectDb() {
      
     try {
         mongoose.connect(uri)
-        console.log('conneted to database');
+        log.info('conneted to database');
     } catch (error) {
-        console.log(error);
+        log.error(error);
         process.exit(1);
     }
 }
