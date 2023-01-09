@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction, request, response} from 'express';
+import { Request, Response, NextFunction} from 'express';
 
-import { getAllusers, getUserById, deleteUser, createUser, getUser } from "./user.services";
+
+import { getAllusers, getUserById, deleteUser, createUser } from "./user.services";
 
 export async function handleAllGetUsers(req: Request, res: Response, next: NextFunction) {
     try {
@@ -55,21 +56,4 @@ export async function handleDeleteUser(req: Request, res: Response,  next: NextF
     }
 }
 
-export async function handleLoginUser(req: Request, res: Response,  next: NextFunction) {
-   const { email, password} = req.body;
 
-   try {
-    const user = await getUser({ email });
-    console.log(user);
-
-    if (!user) {
-        return res.status(404).json({ massage: "User not found"});
-    }
-
-    const validPassword = await user.comparePassword(password)
-
-    return res.status(200).json({ massage: "User logged in", validPassword});
-   } catch (error: any) {
-    return res.status(500).json(error.message);
-   }
-}

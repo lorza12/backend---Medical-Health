@@ -1,5 +1,16 @@
 import { Schema, model } from "mongoose";
 
+export interface AppointmentDocument extends Document {
+  date: Date;
+  doctor: string;
+  speciality: string;
+  reasonForConsultation: string;
+  price: string;
+  owner: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 const AppointmentSchema = new Schema(
   {
     date: {
@@ -23,6 +34,10 @@ const AppointmentSchema = new Schema(
       type: Number,
       require: true,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    }
   },
   {
     timestamps: true,
@@ -30,6 +45,6 @@ const AppointmentSchema = new Schema(
   }
 );
 
-const Appointment = model("citas", AppointmentSchema);
+const Appointment = model<AppointmentDocument>("citas", AppointmentSchema);
 
 export default Appointment;
