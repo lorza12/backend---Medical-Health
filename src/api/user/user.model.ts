@@ -1,6 +1,6 @@
 import { Schema, model, Document } from "mongoose";
 
-interface userDocument extends Document {
+export interface UserDocument extends Document {
     firstName: String;
     lastName: String;
     email: String;
@@ -104,6 +104,6 @@ UserSchema.virtual('fullName').get(function (){
 })
 
 
-const User = model<userDocument>('User', UserSchema);
+const User = model<UserDocument>('User', UserSchema);
 
 export default User;

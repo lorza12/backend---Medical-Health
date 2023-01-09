@@ -4,7 +4,10 @@ import {
   deleteDoctor,
   createDoctor,
 } from "./doctor.services";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+
+
+
 export async function handleGetAllDoctors(req: Request, res: Response) {
   try {
     const doctors = await getAllDoctors();
@@ -48,3 +51,5 @@ export async function handleDeleteDoctor(req: Request, res: Response) {
     return res.status(500).json(err);
   }
 }
+
+
