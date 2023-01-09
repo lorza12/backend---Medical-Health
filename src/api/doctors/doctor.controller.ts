@@ -3,6 +3,7 @@ import {
   getDoctorById,
   deleteDoctor,
   createDoctor,
+  getDoctor,
 } from "./doctor.services";
 import { Request, Response, NextFunction } from "express";
 

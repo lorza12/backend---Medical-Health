@@ -1,5 +1,7 @@
 import { DocumentDefinition, FilterQuery } from "mongoose";
 import User, { UserDocument } from "./user.model";
+import { DocumentDefinition, FilterQuery } from "mongoose";
+import User, { UserDocument } from "./user.model";
 
 
 export function getAllusers() {
@@ -7,6 +9,7 @@ export function getAllusers() {
    
 }
 
+export function getUserById(id: string) {
 export function getUserById(id: string) {
    const user = User.findById(id)
    return user;
@@ -23,6 +26,14 @@ export function createUser(userData: DocumentDefinition <Omit<UserDocument, 'cre
   return User.create(userData);
   
 }
+
+export function updateUser(id: string, user: DocumentDefinition <Omit<UserDocument, 'createdAt' | 'updatedAt'>>) {
+   const updateuser = User.findByIdAndUpdate(id, user, { new: true });
+   
+   return updateUser;
+}
+
+export function deleteUser(id: string) {
 
 export function updateUser(id: string, user: DocumentDefinition <Omit<UserDocument, 'createdAt' | 'updatedAt'>>) {
    const updateuser = User.findByIdAndUpdate(id, user, { new: true });

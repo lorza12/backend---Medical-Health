@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { isAuthenticated, hasRole } from '../../auth/auth.services';
 
 
 import {
@@ -22,6 +23,6 @@ router.post('/', handleCreateAppointment);
 // PATCH /api/Appointment/:id
 
 // DELETE /api/Appointment/:id
-router.delete('/:id', handleDeleteAppointment);
+router.delete('/:id', isAuthenticated, hasRole(['ADMIN']), handleDeleteAppointment);
 
 export default router;

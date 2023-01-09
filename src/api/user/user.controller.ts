@@ -1,6 +1,9 @@
+import { Request, Response, NextFunction} from 'express';
+
+
 import { getAllusers, getUserById, deleteUser, createUser } from "./user.services";
 
-export async function handleAllGetUsers(req, res) {
+export async function handleAllGetUsers(req: Request, res: Response, next: NextFunction) {
     try {
         const users = await getAllusers();
         return res.status(200).json(users);
@@ -11,8 +14,8 @@ export async function handleAllGetUsers(req, res) {
     }
 }
 
-export async function handleGetuser(req, res) {
-    const { id } = req.params;
+export async function handleGetUser(req: Request, res: Response,  next: NextFunction) {
+    const { id } = req.params
     try {
         const user = await getUserById(id);
 
@@ -20,7 +23,7 @@ export async function handleGetuser(req, res) {
             return res.status(404).json({message: "user not found"});
         }
 
-        return res.status(200).json(user.fullName); 
+        return res.status(200).json(user.profile); 
     } catch (error) {
         console.log(error);
         return res.status(500).json(error);
@@ -29,19 +32,19 @@ export async function handleGetuser(req, res) {
 }
 
 
-export async function handleCreateUser(req, res) {
+export async function handleCreateUser(req: Request, res: Response,  next: NextFunction) {
     const data = req.body;
    try {
     const newUser = await createUser(data);
     
-    return res.status(201).json(newUser);
+    return res.status(200).json(newUser);
    } catch (error) {
     console.log(error);
         return res.status(500).json(error);
    }
 }
 
-export async function handleDeleteuser(req, res) {
+export async function handleDeleteUser(req: Request, res: Response,  next: NextFunction) {
     const { id } = req.params;
     try {
       await deleteUser(id)
@@ -52,3 +55,5 @@ export async function handleDeleteuser(req, res) {
 
     }
 }
+
+

@@ -5,19 +5,18 @@ import routes from './routes';
 import configExpress from './configdt/express';
 
 
-
-
 dotenv.config();
 const app = express();
-app.use(express.json())
-
-
+// app.use(express.json())
 
 const port = process.env.PORT || 8080;
 
-connectDb();
-routes(app);
 configExpress(app);
+
+connectDb();
+
+routes(app);
+
 
 
 
