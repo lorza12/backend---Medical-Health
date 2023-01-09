@@ -6,7 +6,6 @@ import {
     handleGetUser,
     handleDeleteUser,
     handleCreateUser,
-    handleLoginUser,
 
 } from './user.controller';
 
@@ -24,7 +23,5 @@ router.post('/', handleCreateUser);
 // DELETE /api/users/:id
 router.delete('/:id', handleDeleteUser);
 
-//login
-router.post('/login', handleLoginUser);
 
 export default router;
