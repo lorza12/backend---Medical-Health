@@ -3,7 +3,6 @@ import express from 'express';
 import connectDb from './configdt/database';
 import routes from './routes';
 import configExpress from './configdt/express';
-import  log  from './logger';
 
 
 dotenv.config();
@@ -22,5 +21,5 @@ routes(app);
 
 
 app.listen(port, () => {
-    log.info('server is running on port 8080');
+    console.log('server is running on port 8080');
 });

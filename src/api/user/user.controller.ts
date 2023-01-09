@@ -3,14 +3,12 @@ import { Request, Response, NextFunction} from 'express';
 
 import { getAllusers, getUserById, deleteUser, createUser } from "./user.services";
 
-import log from '../../logger';
-
 export async function handleAllGetUsers(req: Request, res: Response, next: NextFunction) {
     try {
         const users = await getAllusers();
         return res.status(200).json(users);
     } catch (error) {
-        log.error(error);
+        console.log(error);
         return res.status(500).json(error);
 
     }
@@ -27,7 +25,7 @@ export async function handleGetUser(req: Request, res: Response,  next: NextFunc
 
         return res.status(200).json(user.profile); 
     } catch (error) {
-        log.error(error);
+        console.log(error);
         return res.status(500).json(error);
 
     }
@@ -41,7 +39,7 @@ export async function handleCreateUser(req: Request, res: Response,  next: NextF
     
     return res.status(200).json(newUser);
    } catch (error) {
-    log.error(error);
+    console.log(error);
         return res.status(500).json(error);
    }
 }
@@ -52,7 +50,7 @@ export async function handleDeleteUser(req: Request, res: Response,  next: NextF
       await deleteUser(id)
         return res.status(200).json();
     } catch (error) {
-        log.error(error);
+        console.log(error);
         return res.status(500).json(error);
 
     }
