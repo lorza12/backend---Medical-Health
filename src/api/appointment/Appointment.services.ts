@@ -18,12 +18,12 @@ export function createAppointment(appointmentData: DocumentDefinition<Omit<Appoi
   
 }
 
-// export function updateProduct(
-//    id: string,
-//    Appointment: DocumentDefinition<Omit<AppointmentDocument, 'createdAt' | 'updatedAt'>>,
-//  ) {
-//    return Appointment.findByIdAndUpdate(id, Appointment, { new: true });
-//  }
+export function updateAppointment(id: string, user: DocumentDefinition <Omit<AppointmentDocument, 'createdAt' | 'updatedAt'>>) {
+  const updateuser = Appointment.findByIdAndUpdate(id, user, { new: true });
+  
+  return updateuser;
+}
+
 
 export function deleteAppointment(id: string) {
    const deleteAppointment = Appointment.findByIdAndDelete(id);

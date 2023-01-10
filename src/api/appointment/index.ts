@@ -7,6 +7,7 @@ import {
     handleGetAppointment,
     handleDeleteAppointment,
     handleCreateAppointment,
+    handleUpdateAppointment,
 
 } from './Appointment.controller';
 
@@ -21,7 +22,7 @@ router.get('/:id', handleGetAppointment);
 // POST /api/Appointment
 router.post('/', handleCreateAppointment);
 // PATCH /api/Appointment/:id
-
+router.patch('/:id', handleUpdateAppointment);
 // DELETE /api/Appointment/:id
 router.delete('/:id', isAuthenticated, hasRole(['ADMIN']), handleDeleteAppointment);
 

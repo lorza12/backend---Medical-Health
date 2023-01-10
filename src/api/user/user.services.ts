@@ -27,7 +27,7 @@ export function createUser(userData: DocumentDefinition <Omit<UserDocument, 'cre
 export function updateUser(id: string, user: DocumentDefinition <Omit<UserDocument, 'createdAt' | 'updatedAt'>>) {
    const updateuser = User.findByIdAndUpdate(id, user, { new: true });
    
-   return updateUser;
+   return updateuser;
 }
 
 export function deleteUser(id: string) {
