@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction} from 'express';
 import { AuthRequest } from '../../auth/auth.types';
 
-import { getAllAppointments, getAppointmentById, deleteAppointment, createAppointment } from "./Appointment.services";
+import { getAllAppointments, getAppointmentById, deleteAppointment, createAppointment, updateAppointment } from "./Appointment.services";
 
 export async function handleAllGetAppointments(req: Request, res: Response, next: NextFunction) {
     try {
@@ -31,6 +31,19 @@ export async function handleGetAppointment(req: Request, res: Response, next: Ne
     }
 }
 
+export async function handleUpdateAppointment(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    const data = req.body;
+    console.log(data);
+  
+    const Appointment = await updateAppointment(id, data);
+  
+    if (!Appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+  
+    return res.status(200).json(Appointment);
+  }
 
 export async function handleCreateAppointment(req: Request, res: Response, next: NextFunction) {
     const data = req.body;

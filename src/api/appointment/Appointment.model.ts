@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 
 export interface AppointmentDocument extends Document {
   date: Date;
+  user: string;
   doctor: string;
   speciality: string;
   reasonForConsultation: string;
@@ -13,6 +14,10 @@ export interface AppointmentDocument extends Document {
 
 const AppointmentSchema = new Schema(
   {
+    user: {
+      type: String,
+      require: true,
+    },
     date: {
       type: Date,
       require: true,
