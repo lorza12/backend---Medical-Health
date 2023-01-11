@@ -44,6 +44,8 @@ export async function handleCreateUser(req: Request, res: Response,  next: NextF
    }
 }
 
+
+
 export async function handleDeleteUser(req: Request, res: Response,  next: NextFunction) {
     const { id } = req.params;
     try {
