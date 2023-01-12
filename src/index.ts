@@ -1,11 +1,13 @@
 import * as dotenv from 'dotenv';
 import express from 'express';
+
+dotenv.config();
+
 import connectDb from './configdt/database';
 import routes from './routes';
 import configExpress from './configdt/express';
 
 
-dotenv.config();
 const app = express();
 // app.use(express.json())
 
