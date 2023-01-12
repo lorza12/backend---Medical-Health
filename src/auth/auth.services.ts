@@ -1,4 +1,3 @@
-import { json } from 'body-parser';
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
@@ -7,22 +6,21 @@ import { getUser } from '../api/user/user.services';
 import { AuthRequest, Roles } from './auth.types';
 
 const SECRET = process.env.SECRET_TOKEN_APP as string;
-
-/**
- * return a jwt token signed by the app secret
- * @param payload object | string data to be signed
- * @return token string
- */
+console.log(SECRET);
 
 export function signToken(payload: any) {
-    const token = jwt.sign(payload, 'hi', {expiresIn: '10h'})
+    const token = jwt.sign(
+      payload, 
+      SECRET, 
+      {expiresIn: '10h'},
+      )
     
     return token;
 }
 
 export function verifyToken(token: string) {
     try {
-        const decoded =  jwt.verify(token, 'hi') as UserDocument;
+        const decoded =  jwt.verify(token, SECRET) as UserDocument;
 
         return decoded;
     } catch (error) {
