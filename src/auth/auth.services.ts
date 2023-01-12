@@ -7,7 +7,6 @@ import { AuthRequest, Roles } from './auth.types';
 
 const SECRET = process.env.SECRET_TOKEN_APP as string;
 
-
 export function signToken(payload: any) {
     const token = jwt.sign(
       payload, 
@@ -17,6 +16,8 @@ export function signToken(payload: any) {
     
     return token;
 }
+
+
 
 export function verifyToken(token: string) {
     try {
@@ -53,6 +54,7 @@ export async function isAuthenticated(req: AuthRequest, res: Response, next: Nex
     return true;
   }
 
+  
   export function hasRole(allowroles: Roles) {
     return (req: AuthRequest, res: Response, next: NextFunction) => {
       const { role } = req.user as UserDocument;
