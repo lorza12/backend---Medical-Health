@@ -6,7 +6,7 @@ import { getUser } from '../api/user/user.services';
 import { AuthRequest, Roles } from './auth.types';
 
 const SECRET = process.env.SECRET_TOKEN_APP as string;
-console.log(SECRET);
+
 
 export function signToken(payload: any) {
     const token = jwt.sign(
