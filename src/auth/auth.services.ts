@@ -1,11 +1,11 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-
 import { UserDocument } from '../api/user/user.model';
 import { getUser } from '../api/user/user.services';
 import { AuthRequest, Roles } from './auth.types';
 
 const SECRET = process.env.SECRET_TOKEN_APP as string;
+
 
 export function signToken(payload: any) {
     const token = jwt.sign(
@@ -18,10 +18,10 @@ export function signToken(payload: any) {
 }
 
 
-
 export function verifyToken(token: string) {
     try {
         const decoded =  jwt.verify(token, SECRET) as UserDocument;
+        
 
         return decoded;
     } catch (error) {
@@ -54,7 +54,7 @@ export async function isAuthenticated(req: AuthRequest, res: Response, next: Nex
     return true;
   }
 
-  
+
   export function hasRole(allowroles: Roles) {
     return (req: AuthRequest, res: Response, next: NextFunction) => {
       const { role } = req.user as UserDocument;

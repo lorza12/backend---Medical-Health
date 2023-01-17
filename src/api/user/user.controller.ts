@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction} from 'express';
+import {  Request, Response, NextFunction} from 'express';
+import { AuthRequest } from '../../auth/auth.types';
 
 
 import { getAllusers, getUserById, deleteUser, createUser } from "./user.services";
@@ -58,4 +59,21 @@ export async function handleDeleteUser(req: Request, res: Response,  next: NextF
     }
 }
 
+export async function handleGetMe(req: AuthRequest, res: Response,  next: NextFunction) {
+    const id = req.user?._id;
+
+    try {
+        const user = await getUserById(id);
+        
+
+        if (!user) {
+            return res.status(404).json({ message: " user not found"});
+        }
+
+        return res.status(200).json(user.profile);
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error);
+    }
+}
 
