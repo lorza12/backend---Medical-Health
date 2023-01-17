@@ -7,6 +7,7 @@ import {
     handleGetUser,
     handleDeleteUser,
     handleCreateUser,
+    handleGetMe,
 
 } from './user.controller';
 
@@ -16,7 +17,7 @@ const router = Router();
 // GET /api/users
 router.get('/', handleAllGetUsers);
 // GET /api/users/:id
-router.get('/:id', handleGetUser);
+// router.get('/:id', handleGetUser);
 // POST /api/users
 router.post('/', handleCreateUser);
 // PATCH /api/users/:id
@@ -24,5 +25,6 @@ router.post('/', handleCreateUser);
 // DELETE /api/users/:id
 router.delete('/:id', isAuthenticated, hasRole(['ADMIN']), handleDeleteUser);
 
+router.get('/me',isAuthenticated, handleGetMe)
 
 export default router;
