@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { sendEmail } from '../../utils/emails';
+import crypto from 'crypto';
 
 import {
   getAllusers,
@@ -7,6 +7,7 @@ import {
   deleteUser,
   createUser,
 } from './user.services';
+import { sendEmail } from '../../utils/emails';
 
 export async function handleAllGetUsers(
   req: Request,
@@ -49,6 +50,10 @@ export async function handleCreateUser(
 ) {
   const data = req.body;
   try {
+    const hash = crypto.createHash('sha256').update(data.email).digest('hex');
+    data.passwordResetToken = hash;
+    data.passwordResetExpires = Date.now() + 3_600_000 * 24;
+
     const newUser = await createUser(data);
 
     const msg = {
@@ -57,7 +62,7 @@ export async function handleCreateUser(
       subject: 'Activate your account',
       templateId: 'd-63aefe4eee0c4f8f9056c191d9c04aa6',
       dynamic_template_data: {
-        url: `http://localhost:8080/activate/345`,
+        url: `http://localhost:3000/activate/${hash}`,
       },
     };
 
