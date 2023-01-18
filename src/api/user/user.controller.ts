@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { sendMailSendGrid } from '../../utils/emails';
+import { sendEmail } from '../../utils/emails';
 
 import {
   getAllusers,
@@ -50,15 +50,18 @@ export async function handleCreateUser(
   const data = req.body;
   try {
     const newUser = await createUser(data);
+
     const msg = {
-      to: 'monsalvedanielv+30@gmail.com',
-      from: `'No Reply' <mebidhealth@gmail.com>`,
-      subject: 'Welcome to MEBID Healthcare',
-      text: 'Welcome to MEBID Healthcare',
-      html: '<strong>Welcome to MEBID</strong>',
+      to: newUser.email,
+      from: 'mebidhealth@gmail.com',
+      subject: 'Activate your account',
+      templateId: 'd-63aefe4eee0c4f8f9056c191d9c04aa6',
+      dynamic_template_data: {
+        url: `http://localhost:8080/activate/345`,
+      },
     };
 
-    await sendMailSendGrid(msg);
+    await sendEmail(msg);
 
     return res.status(200).json(newUser);
   } catch (error: any) {

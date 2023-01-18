@@ -1,9 +1,24 @@
-import sgMail from '@sendgrid/mail';
+import sendGridMail from '@sendgrid/mail';
 
-export function sendMailSendGrid(data: sgMail.MailDataRequired) {
-  const apiKey = process.env.SENDGRIP_API_KEY as string;
+const SENDGRID_API_KEY =
+  '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';
 
-  sgMail.setApiKey(apiKey);
+sendGridMail.setApiKey(SENDGRID_API_KEY as string);
 
-  return sgMail.send(data);
+/* export function sendMailSendGrid(data: sgMail.MailDataRequired) { */
+/*   const apiKey = SENDGRID_API_KEY as string; */
+/**/
+/*   sgMail.setApiKey(apiKey); */
+/**/
+/*   return sgMail.send(data); */
+/* } */
+
+export async function sendEmail(data: sendGridMail.MailDataRequired) {
+  try {
+    await sendGridMail.send(data);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email');
+    console.error(error);
+  }
 }
