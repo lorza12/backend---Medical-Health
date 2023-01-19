@@ -25,6 +25,6 @@ router.post('/', handleCreateUser);
 // DELETE /api/users/:id
 router.delete('/:id', isAuthenticated, hasRole(['ADMIN']), handleDeleteUser);
 
-router.get('/me',isAuthenticated, handleGetMe)
+router.get('/me', handleGetMe)
 
 export default router;

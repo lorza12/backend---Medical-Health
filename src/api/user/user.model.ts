@@ -19,7 +19,6 @@ export interface UserDocument extends Document {
   passwordResetExpires?: Date;
   createdAt: Date;
   updatedAt: Date;
-
   fullName: string;
   profile: userProfileType;
   comparePassword: (passsword: string) => Promise<boolean>;
@@ -76,7 +75,10 @@ const UserSchema = new Schema(
       type: Date,
       require: false,
     },
-
+    appointments: {
+      type: Schema.Types.ObjectId,
+      ref: 'citas',
+    },
     gender: {
       type: String,
       require: false,
@@ -101,7 +103,7 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre("save", async function save(next: Function) {
-  const user = this as UserDocument;
+  const user = this as unknown as UserDocument;
 
   try {
     if (!user.isModified("password")) {
@@ -117,22 +119,23 @@ UserSchema.pre("save", async function save(next: Function) {
   }
 });
 
-UserSchema.virtual("fullName").get(function () {
-  const { firstName, lastName } = this;
-  return `${firstName} ${lastName}`;
-});
+// UserSchema.virtual("fullName").get(function () {
+//   const { firstName, lastName } = this;
+//   return `${firstName} ${lastName}`;
+// });
 
-UserSchema.virtual("profile").get(function profile() {
-  const { firstName, lastName, email, avatar, role } = this;
+// UserSchema.virtual("profile").get(function profile() {
+//   const { firstName, lastName, email, avatar, role, nacionality } = this;
 
-  return {
-    firstName,
-    lastName,
-    email,
-    avatar,
-    role,
-  };
-});
+//   return {
+//     firstName,
+//     lastName,
+//     email,
+//     avatar,
+//     role,
+//     nacionality,
+//   };
+// });
 
 async function comparePassword(
   this: UserDocument,

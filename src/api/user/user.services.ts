@@ -32,5 +32,13 @@ export function updateUser(id: string, user: DocumentDefinition <Omit<UserDocume
 
 export function deleteUser(id: string) {
    const deleteUser = User.findByIdAndDelete(id);
-   return deleteUser
+   return deleteUser;
 }
+
+
+// export function getAllAppointmen(req: string,res: string) {
+//    const data = req.params;
+//    const foundUser = User.find({name: req.params.username}). populate("citas");
+//    return foundUser;
+    
+//  }
