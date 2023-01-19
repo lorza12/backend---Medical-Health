@@ -22,3 +22,6 @@ export async function sendEmail(data: sendGridMail.MailDataRequired) {
     console.error(error);
   }
 }
+
+//   return sgMail.send(data);
+// }
