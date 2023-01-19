@@ -8,18 +8,17 @@ export interface UserDocument extends Document {
   email: string;
   password: string;
   nacionality: string;
-  avatar: string;
   role: "USER" | "ADMIN";
   phone: string;
   birthday: Date;
   gender: string;
   location: string;
+  cart: string[];
   isActive: boolean;
   passwordResetToken?: string;
   passwordResetExpires?: Date;
   createdAt: Date;
   updatedAt: Date;
-  fullName: string;
   profile: userProfileType;
   comparePassword: (passsword: string) => Promise<boolean>;
 }
@@ -36,7 +35,6 @@ const UserSchema = new Schema(
       require: true,
       uppercase: true,
     },
-
     email: {
       type: String,
       require: true,
@@ -49,35 +47,26 @@ const UserSchema = new Schema(
       require: true,
       min: 6,
     },
-
+    nacionality: {
+      type: String,
+      require: true,
+    },
     role: {
       type: String,
       enum: ["USER", "ADMIN"],
       default: "USER",
     },
-
-    avatar: {
-      type: String,
-      require: true,
-    },
-
-    nacionality: {
-      type: String,
-      require: true,
-    },
-
     phone: {
       type: String,
       require: true,
     },
-
+    // cart: {
+    //   type: String,
+    //   require: false,
+    // },
     birthday: {
       type: Date,
       require: false,
-    },
-    appointments: {
-      type: Schema.Types.ObjectId,
-      ref: 'citas',
     },
     gender: {
       type: String,
@@ -125,15 +114,14 @@ UserSchema.virtual("fullName").get(function () {
 });
 
 UserSchema.virtual("profile").get(function profile() {
-  const { firstName, lastName, email, avatar, role, nacionality } = this;
+  const { firstName, lastName, email, role } =
+    this;
 
   return {
     firstName,
     lastName,
     email,
-    avatar,
     role,
-    nacionality,
   };
 });
 
@@ -156,6 +144,6 @@ async function comparePassword(
 
 UserSchema.methods.comparePassword = comparePassword;
 
-const User = model<UserDocument>("User", UserSchema);
+const User = model<UserDocument>("user", UserSchema);
 
 export default User;

@@ -4,5 +4,6 @@ export type userProfileType = {
     email: String;
     avatar: String;
     role: String;
-
+    nationality:String;
+    id:String;
 }

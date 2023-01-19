@@ -6,8 +6,10 @@ import {
   getUserById,
   deleteUser,
   createUser,
+  updateUser
 } from './user.services';
 import { sendEmail } from '../../utils/emails';
+import { AuthRequest } from '../../auth/auth.types';
 
 export async function handleAllGetUsers(
   req: Request,
@@ -72,6 +74,36 @@ export async function handleCreateUser(
   } catch (error: any) {
     console.log(error);
     return res.status(500).json(error.message);
+  }
+}
+export async function handleUpdateUser(req: Request, res: Response, next: NextFunction) {
+  const { id } = req.params;
+  const data = req.body;
+  console.log(data);
+
+  const cart = await updateUser(id, data);
+
+  if (!cart) {
+    return res.status(404).json({ message: 'cart not found' });
+  }
+
+  return res.status(200).json(cart);
+}
+export async function handleGetMe(req: AuthRequest, res: Response, next: NextFunction) {
+  const id = req.user?._id;
+
+  try {
+    const user = await getUserById(id);
+    // TODO: Search all info about user
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json(user);
+  } catch(error) {
+    console.error(error)
+    return res.status(500).json(error);
   }
 }
 

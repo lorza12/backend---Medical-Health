@@ -7,6 +7,8 @@ import {
     handleGetUser,
     handleDeleteUser,
     handleCreateUser,
+    handleUpdateUser,
+    handleGetMe,
 
 } from './user.controller';
 
@@ -16,11 +18,11 @@ const router = Router();
 // GET /api/users
 router.get('/', handleAllGetUsers);
 // GET /api/users/:id
-// router.get('/:id', handleGetUser);
+router.get('/me', isAuthenticated, handleGetMe);
 // POST /api/users
 router.post('/', handleCreateUser);
 // PATCH /api/users/:id
-
+router.patch('/edit/:id',handleUpdateUser )
 // DELETE /api/users/:id
 router.delete('/:id', isAuthenticated, hasRole(['ADMIN']), handleDeleteUser);
 

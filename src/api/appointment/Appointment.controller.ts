@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction} from 'express';
 import { AuthRequest } from '../../auth/auth.types';
 
-import { getAllAppointments, getAppointmentById, deleteAppointment, createAppointment, updateAppointment } from "./Appointment.services";
+import { getAllAppointments, getAppointmentById, deleteAppointment, createAppointment, updateAppointment, getAppoimentByUser } from "./Appointment.services";
 
 export async function handleAllGetAppointments(req: Request, res: Response, next: NextFunction) {
     try {
@@ -45,10 +45,16 @@ export async function handleUpdateAppointment(req: Request, res: Response, next:
     return res.status(200).json(Appointment);
   }
 
-export async function handleCreateAppointment(req: Request, res: Response, next: NextFunction) {
+export async function handleCreateAppointment(req: AuthRequest, res: Response, next: NextFunction) {
     const data = req.body;
+    const user = req.user
    try {
-    const newAppointment = await createAppointment(data);
+    const appoiment = {
+        ...data,
+        userId:user?._id,
+    }
+    console.log(data)
+    const newAppointment = await createAppointment(appoiment);
     
     return res.status(201).json(newAppointment);
    } catch (error) {
@@ -72,4 +78,16 @@ export async function handleDeleteAppointment(req: AuthRequest, res: Response, n
         return res.status(500).json(error);
 
     }
+}
+export async function handleUserHistory(req: AuthRequest, res: Response, next: NextFunction) {
+    const user = req.user
+   try {
+    const appoimnets = await getAppoimentByUser(user?._id)
+    
+    
+    return res.status(201).json(appoimnets);
+   } catch (error) {
+    console.log(error);
+        return res.status(500).json(error);
+   }
 }

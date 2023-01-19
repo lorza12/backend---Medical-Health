@@ -12,6 +12,12 @@ export function getAppointmentById(id: string) {
    return AppointmentResult;
 }
 
+export function getAppoimentByUser(userId:string){
+  return Appointment.find({userId}).populate({path:"doctorId",select:"name"})
+}
+export function getAppoimentByDoctor(doctorId:string){
+  return Appointment.find({doctorId}).populate({path:"userId",select:"firstName lastName"})
+}
 export function createAppointment(appointmentData: DocumentDefinition<Omit<AppointmentDocument, 'createdAt' | 'updateAt'>>) {
   
   return Appointment.create(appointmentData);
