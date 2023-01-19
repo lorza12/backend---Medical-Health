@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Mongoose, SchemaType } from "mongoose";
 
 export interface AppointmentDocument extends Document {
   date: Date;
@@ -16,25 +16,19 @@ export interface AppointmentDocument extends Document {
 
 const AppointmentSchema = new Schema(
   {
-    user: {
-      type: String,
+    userId: {
+      type: Schema.Types.ObjectId,
       require: true,
+      ref:"user"
     },
     date: {
       type: Date,
       require: true,
     },
-    doctor: {
-      type: String,
+    doctorId: {
+      type: Schema.Types.ObjectId,
       require: true,
-    },
-    email: {
-      type: String,
-      require: true,
-    },
-    birth: {
-      type: String,
-      require: true,
+      ref:"doctor"
     },
     //implementar el crud
     speciality: {
@@ -47,32 +41,13 @@ const AppointmentSchema = new Schema(
     },
     price: {
       type: Number,
-      require: false,
+      default:200000
     },
-    nationality: {
+    place: {
       type: String,
-      require: true,
+      default: "virtual",
+      enum:["virtual", "onSite"]
     },
-    hospital: {
-      type: String,
-      require: true,
-    },
-    sex: {
-      type: String,
-      require: true,
-    },
-    phoneNumber: {
-      type: String,
-      require: true,
-    },
-    residence: {
-      type: String,
-      require: true,
-    },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    }
   },
   {
     timestamps: true,
@@ -80,6 +55,6 @@ const AppointmentSchema = new Schema(
   }
 );
 
-const Appointment = model<AppointmentDocument>("citas", AppointmentSchema);
+const Appointment = model<AppointmentDocument>("appoiment", AppointmentSchema);
 
 export default Appointment;

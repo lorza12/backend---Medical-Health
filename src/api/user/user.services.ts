@@ -9,6 +9,12 @@ export function getUserById(id: string) {
   const user = User.findById(id);
   return user;
 }
+export function getUserByemail(email:string) {
+  const user = User.find({email: email});
+
+  return user;
+}
+
 
 export function getUser(filter: FilterQuery<UserDocument>) {
   const user = User.findOne(filter);
@@ -24,9 +30,9 @@ export function createUser(
 
 export function updateUser(
   id: string,
-  user: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt'>>
+ value:any
 ) {
-  const updateuser = User.findByIdAndUpdate(id, user, { new: true });
+  const updateuser = User.findByIdAndUpdate({"id": id},{value}).exec;
 
   return updateuser;
 }

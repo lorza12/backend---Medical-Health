@@ -19,7 +19,7 @@ const ProductsSchema = new Schema(
       require: true,
     },
     image: {
-      type: Date,
+      type: String,
       require: true,
     },
     quantity: {

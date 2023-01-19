@@ -4,7 +4,7 @@ import { doctorProfileType} from './doctor.types';
 
 
 export interface DoctorDocument extends Document {
-  firstName: string;
+  name: string;
   lastName: string;
   role: "USER" | "ADMIN";
   location: string;
@@ -26,7 +26,7 @@ export interface DoctorDocument extends Document {
 
 const DoctorSchema = new Schema(
   {
-    firstName: {
+    name: {
       type: String,
       required: true,
     },
@@ -84,10 +84,10 @@ const DoctorSchema = new Schema(
 );
 
 DoctorSchema.virtual("profile").get(function profile() {
-  const { firstName, lastName, email, avatar, role } = this;
+  const { name, lastName, email, avatar, role } = this;
 
   return {
-    firstName,
+    name,
     lastName,
     email,
     avatar,
@@ -95,10 +95,6 @@ DoctorSchema.virtual("profile").get(function profile() {
   };
 });
 
-DoctorSchema.virtual("fullName").get(function () {
-  const { firstName, lastName } = this;
-  return `${firstName} ${lastName}`;
-})
 
 DoctorSchema.pre("save", async function save(next: Function) {
   const doctor = this as DoctorDocument;
