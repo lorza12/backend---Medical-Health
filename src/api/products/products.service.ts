@@ -31,6 +31,6 @@ export function updateProducts(id: string, user: DocumentDefinition <Omit<Produc
 }
 
 export function deleteProducts(id: string) {
-   const deleteUser = Products.findByIdAndDelete(id);
-   return deleteUser
+   const deleteProducts = Products.findByIdAndDelete(id);
+   return deleteProducts
 }
