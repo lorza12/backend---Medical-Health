@@ -1,17 +1,6 @@
 import sendGridMail from '@sendgrid/mail';
 
-const SENDGRID_API_KEY =
-  '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';
-
-sendGridMail.setApiKey(SENDGRID_API_KEY as string);
-
-/* export function sendMailSendGrid(data: sgMail.MailDataRequired) { */
-/*   const apiKey = SENDGRID_API_KEY as string; */
-/**/
-/*   sgMail.setApiKey(apiKey); */
-/**/
-/*   return sgMail.send(data); */
-/* } */
+sendGridMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
 export async function sendEmail(data: sendGridMail.MailDataRequired) {
   try {
