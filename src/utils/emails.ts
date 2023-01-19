@@ -1,40 +1,27 @@
-// import nodemailer from 'nodemailer';
-// import Mail from 'nodemailer/lib/mailer';
-// import sgMail from '@sendgrid/mail';
+import sendGridMail from '@sendgrid/mail';
 
-// function createGmailTransporter(){
-//   const hostname = process.env.SMTP_SERVER;
-//   const port = Number(process.env.SMTP_PORT) as number;
-//   const username = process.env.SMTP_USER;
-//   const password = process.env.SMTP_PASSWORD;
+const SENDGRID_API_KEY =
+  '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';
 
-//   const transporter = nodemailer.createTransport({
-//     host: hostname,
-//     port,
-//     secure: true,
-//     // requireTLS: true,
-//     auth: {
-//       user: username,
-//       pass: password,
-//     },
-//     logger: false,
-//   });
+sendGridMail.setApiKey(SENDGRID_API_KEY as string);
 
-//   return transporter;
-// }
+/* export function sendMailSendGrid(data: sgMail.MailDataRequired) { */
+/*   const apiKey = SENDGRID_API_KEY as string; */
+/**/
+/*   sgMail.setApiKey(apiKey); */
+/**/
+/*   return sgMail.send(data); */
+/* } */
 
-// export async function sendNodeMailer(data: Mail.Options) {
-//   const transporter = createGmailTransporter();
-
-//   // send mail with defined transport object
-//   const info = await transporter.sendMail(data);
-
-//   return info;
-// }
-
-// export function sendMailSendGrid(data: sgMail.MailDataRequired) {
-//   const apiKey = process.env.SENDGRID_API_KEY as string;
-//   sgMail.setApiKey(apiKey);
+export async function sendEmail(data: sendGridMail.MailDataRequired) {
+  try {
+    await sendGridMail.send(data);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email');
+    console.error(error);
+  }
+}
 
 //   return sgMail.send(data);
 // }
