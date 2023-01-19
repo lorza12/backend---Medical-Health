@@ -19,7 +19,6 @@ export interface UserDocument extends Document {
   passwordResetExpires?: Date;
   createdAt: Date;
   updatedAt: Date;
-
   fullName: string;
   profile: userProfileType;
   comparePassword: (passsword: string) => Promise<boolean>;
@@ -76,7 +75,10 @@ const UserSchema = new Schema(
       type: Date,
       require: false,
     },
-
+    appointments: {
+      type: Schema.Types.ObjectId,
+      ref: 'citas',
+    },
     gender: {
       type: String,
       require: false,
@@ -123,7 +125,7 @@ UserSchema.virtual("fullName").get(function () {
 });
 
 UserSchema.virtual("profile").get(function profile() {
-  const { firstName, lastName, email, avatar, role } = this;
+  const { firstName, lastName, email, avatar, role, nacionality } = this;
 
   return {
     firstName,
@@ -131,6 +133,7 @@ UserSchema.virtual("profile").get(function profile() {
     email,
     avatar,
     role,
+    nacionality,
   };
 });
 

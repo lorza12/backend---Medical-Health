@@ -4,6 +4,8 @@ export interface AppointmentDocument extends Document {
   date: Date;
   user: string;
   doctor: string;
+  email: string;
+  birth: string;
   speciality: string;
   reasonForConsultation: string;
   price: string;
@@ -26,6 +28,14 @@ const AppointmentSchema = new Schema(
       type: String,
       require: true,
     },
+    email: {
+      type: String,
+      require: true,
+    },
+    birth: {
+      type: String,
+      require: true,
+    },
     //implementar el crud
     speciality: {
       type: String,
@@ -37,6 +47,26 @@ const AppointmentSchema = new Schema(
     },
     price: {
       type: Number,
+      require: false,
+    },
+    nationality: {
+      type: String,
+      require: true,
+    },
+    hospital: {
+      type: String,
+      require: true,
+    },
+    sex: {
+      type: String,
+      require: true,
+    },
+    phoneNumber: {
+      type: String,
+      require: true,
+    },
+    residence: {
+      type: String,
       require: true,
     },
     owner: {
