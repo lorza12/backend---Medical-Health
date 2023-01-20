@@ -66,7 +66,7 @@ const UserSchema = new Schema(
     // },
     birthday: {
       type: Date,
-      require: false,
+      require: true,
     },
     gender: {
       type: String,
@@ -114,7 +114,7 @@ UserSchema.virtual("fullName").get(function () {
 });
 
 UserSchema.virtual("profile").get(function profile() {
-  const { firstName, lastName, email, role } =
+  const { firstName, lastName, email, role, birthday, gender } =
     this;
 
   return {
@@ -122,6 +122,8 @@ UserSchema.virtual("profile").get(function profile() {
     lastName,
     email,
     role,
+    birthday,
+    gender,
   };
 });
 

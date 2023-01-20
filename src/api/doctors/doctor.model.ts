@@ -1,16 +1,16 @@
 import { Schema, model, Document, AsyncValidateFn } from "mongoose";
 import bcrypt from "bcryptjs";
-import { doctorProfileType} from './doctor.types';
-
+import { doctorProfileType } from "./doctor.types";
 
 export interface DoctorDocument extends Document {
   name: string;
-  lastName: string;
   role: "USER" | "ADMIN";
   location: string;
   password: string;
   email: string;
   specialty: string;
+  memberships: string[];
+  qualifications: string[];
   avatar: string;
   isActive: boolean;
   passwordResetToken?: string;
@@ -23,14 +23,9 @@ export interface DoctorDocument extends Document {
   comparePassword: (passsword: string) => Promise<boolean>;
 }
 
-
 const DoctorSchema = new Schema(
   {
     name: {
-      type: String,
-      required: true,
-    },
-    lastName: {
       type: String,
       required: true,
     },
@@ -56,6 +51,13 @@ const DoctorSchema = new Schema(
       type: String,
       required: true,
     },
+    memberships: {
+      required: false,
+    },
+    qualificatios: {
+      type: String,
+      required: false,
+    },
     avatar: {
       type: String,
       require: true,
@@ -66,16 +68,16 @@ const DoctorSchema = new Schema(
     },
     passwordResetToken: String,
     passwordResetExpires: Date,
-//     appointments: {
-//       type: Array,
-//     },
-//     skills: {
-//       type: Array,
-//     },
-//     qualifications: {
-//       type: Array,
-//     },
-//     image: String,
+    //     appointments: {
+    //       type: Array,
+    //     },
+    //     skills: {
+    //       type: Array,
+    //     },
+    //     qualifications: {
+    //       type: Array,
+    //     },
+    //     image: String,
   },
   {
     timestamps: true,
@@ -84,17 +86,26 @@ const DoctorSchema = new Schema(
 );
 
 DoctorSchema.virtual("profile").get(function profile() {
-  const { name, lastName, email, avatar, role } = this;
-
-  return {
+  const {
     name,
-    lastName,
     email,
     avatar,
     role,
+    specialty,
+    memberships,
+    qualificatios,
+  } = this;
+
+  return {
+    name,
+    email,
+    avatar,
+    role,
+    specialty,
+    memberships,
+    qualificatios,
   };
 });
-
 
 DoctorSchema.pre("save", async function save(next: Function) {
   const doctor = this as DoctorDocument;
@@ -131,8 +142,6 @@ async function comparePassword(
 }
 
 DoctorSchema.methods.comparePassword = comparePassword;
-
-
 
 const Doctor = model<DoctorDocument>("doctor", DoctorSchema);
 

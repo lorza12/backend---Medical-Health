@@ -13,7 +13,7 @@ export function getAppointmentById(id: string) {
 }
 
 export function getAppoimentByUser(userId:string){
-  return Appointment.find({userId}).populate({path:"doctorId",select:"name"})
+  return Appointment.find({userId}).populate({path:"doctorId",select:"name specialty"})
 }
 export function getAppoimentByDoctor(doctorId:string){
   return Appointment.find({doctorId}).populate({path:"userId",select:"firstName lastName"})
