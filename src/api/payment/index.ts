@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { handlePayment} from './payment.controller';
+import handlePayment from './payment.controller';
 
  
 
