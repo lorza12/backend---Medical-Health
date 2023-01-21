@@ -1,6 +1,8 @@
 import sendGridMail from '@sendgrid/mail';
 
-sendGridMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY as string;
+
+sendGridMail.setApiKey(SENDGRID_API_KEY);
 
 export async function sendEmail(data: sendGridMail.MailDataRequired) {
   try {
@@ -11,6 +13,3 @@ export async function sendEmail(data: sendGridMail.MailDataRequired) {
     console.error(error);
   }
 }
-
-//   return sgMail.send(data);
-// }
