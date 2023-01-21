@@ -6,7 +6,7 @@ import {
   getUserById,
   deleteUser,
   createUser,
-  updateUser
+  updateUser,
 } from './user.services';
 import { sendEmail } from '../../utils/emails';
 import { AuthRequest } from '../../auth/auth.types';
@@ -60,10 +60,12 @@ export async function handleCreateUser(
 
     const msg = {
       to: newUser.email,
-      from: 'mebidhealth@gmail.com',
+      from: 'No reply <lorza112@hotmail.com>',
       subject: 'Activate your account',
-      templateId: 'd-63aefe4eee0c4f8f9056c191d9c04aa6',
+      templateId: 'd-31123bc995be469583be489aa9b67ff6',
       dynamic_template_data: {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
         url: `http://localhost:3000/activate/${hash}`,
       },
     };
@@ -76,7 +78,11 @@ export async function handleCreateUser(
     return res.status(500).json(error.message);
   }
 }
-export async function handleUpdateUser(req: Request, res: Response, next: NextFunction) {
+export async function handleUpdateUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const { id } = req.params;
   const data = req.body;
   console.log(data);
@@ -89,7 +95,11 @@ export async function handleUpdateUser(req: Request, res: Response, next: NextFu
 
   return res.status(200).json(cart);
 }
-export async function handleGetMe(req: AuthRequest, res: Response, next: NextFunction) {
+export async function handleGetMe(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) {
   const id = req.user?._id;
 
   try {
@@ -97,12 +107,12 @@ export async function handleGetMe(req: AuthRequest, res: Response, next: NextFun
     // TODO: Search all info about user
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     return res.status(200).json(user);
-  } catch(error) {
-    console.error(error)
+  } catch (error) {
+    console.error(error);
     return res.status(500).json(error);
   }
 }

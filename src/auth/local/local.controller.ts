@@ -48,6 +48,7 @@ export async function handleVerifyEmailUser(
     if (Date.now() > Number(user.passwordResetExpires)) {
       return res.status(400).json({ message: 'Token expired' });
     }
+
     user.isActive = true;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
