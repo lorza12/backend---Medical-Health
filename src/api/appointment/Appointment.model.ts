@@ -41,7 +41,7 @@ const AppointmentSchema = new Schema(
     },
     price: {
       type: Number,
-      default:200000
+      default:58.2
     },
     place: {
       type: String,
