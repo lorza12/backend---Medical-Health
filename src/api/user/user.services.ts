@@ -1,4 +1,5 @@
 import { DocumentDefinition, FilterQuery } from 'mongoose';
+import { AppointmentDocument } from '../appointment/Appointment.model';
 import User, { UserDocument } from './user.model';
 
 export function getAllusers() {
@@ -28,11 +29,9 @@ export function createUser(
   return User.create(userData);
 }
 
-export function updateUser(
-  id: string,
- value:any
-) {
-  const updateuser = User.findByIdAndUpdate({"id": id},{value}).exec;
+export function updateUser(id: string, user: DocumentDefinition <Omit<AppointmentDocument, 'createdAt' | 'updatedAt'>>) {
+
+  const updateuser = User.findByIdAndUpdate(id, user, {new: true });
 
   return updateuser;
 }
